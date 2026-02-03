@@ -1,6 +1,7 @@
 create table color(
   id uuid primary key,
-  name varchar(100) not null
+  name varchar(100) not null,
+  hex_code varchar(7) not null
 );
 
 create table patient(
