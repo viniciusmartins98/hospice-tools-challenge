@@ -11,7 +11,7 @@ namespace HospiceToolsChallenge.Infra.Repositories
         }
 
         private IEnumerable<User> _mockedUser = [
-            new User { Name = "Admin", Username = "admin", Password = "test123" },
+            new User { Name = "Admin", Username = "admin", Password = "admin" },
         ];
     }
 }
