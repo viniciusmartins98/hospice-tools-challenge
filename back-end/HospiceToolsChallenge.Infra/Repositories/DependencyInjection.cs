@@ -9,6 +9,7 @@ namespace HospiceToolsChallenge.Infra.Repositories
         {
             return services
                 .AddTransient<IUserRepository, UserRepository>()
+                .AddTransient<IPatientRepository, PatientRepository>()
                 ;
         }
     }
