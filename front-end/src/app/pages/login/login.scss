@@ -42,6 +42,14 @@ form {
   }
 }
 
+.form-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: colors.$error-color;
+  margin-bottom: 1rem;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
