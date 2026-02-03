@@ -1,7 +1,6 @@
-import { HttpErrorResponse, HttpEventType, HttpInterceptorFn } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import consts from '../../../../consts';
-import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { throwError } from 'rxjs';
