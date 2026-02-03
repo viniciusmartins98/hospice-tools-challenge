@@ -29,6 +29,9 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("id");
+            entity.Property(e => e.HexCode)
+                .HasMaxLength(7)
+                .HasColumnName("hex_code");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");

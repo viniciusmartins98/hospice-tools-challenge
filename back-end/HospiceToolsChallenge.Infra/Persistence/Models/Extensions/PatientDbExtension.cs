@@ -19,6 +19,7 @@ namespace HospiceToolsChallenge.Infra.Persistence.Models.Extensions
                 {
                     Id = patient.FavoriteColor.Id,
                     Name = patient.FavoriteColor.Name,
+                    HexCode = patient.FavoriteColor.HexCode,
                 } : null,
                 FirstName = patient.FirstName,
                 LastName = patient.LastName,

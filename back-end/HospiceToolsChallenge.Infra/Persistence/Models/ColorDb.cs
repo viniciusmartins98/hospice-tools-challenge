@@ -11,5 +11,7 @@ public partial class ColorDb
 
     public string Name { get; set; } = null!;
 
+    public string HexCode { get; set; } = null!;
+
     public virtual ICollection<PatientDb> PatientDb { get; set; } = new List<PatientDb>();
 }
