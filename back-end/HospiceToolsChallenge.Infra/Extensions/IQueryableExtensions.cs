@@ -16,7 +16,7 @@ namespace HospiceToolsChallenge.Infra.Extensions
 
             var totalItens = await query.CountAsync(cancellationToken);
 
-            var pageResults = await query.Skip(filter.Page * filter.PageSize)
+            var pageResults = await query.Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToListAsync(cancellationToken);
 
