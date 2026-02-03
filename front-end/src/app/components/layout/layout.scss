@@ -1,14 +1,21 @@
 @use '@angular/material' as mat;
 @use '../../../theme/colors' as *;
 
+$header-height: 90px;
+
 .app-container {
   height: 100vh;
+
+  .sidenav {
+    margin-top: $header-height;
+  }
 }
 
 .header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   background-color: $primary-color;
   color: #fff;
+  height: $header-height;
 
   .icon {
     color: #fff;
