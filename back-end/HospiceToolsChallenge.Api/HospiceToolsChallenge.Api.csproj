@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HospiceToolsChallenge.Application\HospiceToolsChallenge.Application.csproj" />
+    <ProjectReference Include="..\HospiceToolsChallenge.Domain\HospiceToolsChallenge.Domain.csproj" />
+    <ProjectReference Include="..\HospiceToolsChallenge.Infra\HospiceToolsChallenge.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+﻿[
+   {
+      "SchemaName": "public",
+      "TablePatternReplaceWith": "$1Db",
+      "TableRegexPattern": "^(.+)$",
+      "UseSchemaName": false
+   }
+]

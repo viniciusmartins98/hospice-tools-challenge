@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospiceToolsChallenge.Application", "HospiceToolsChallenge.Application\HospiceToolsChallenge.Application.csproj", "{64463E3F-0CC1-4FDC-9211-CD5E1DB71BA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospiceToolsChallenge.Domain", "HospiceToolsChallenge.Domain\HospiceToolsChallenge.Domain.csproj", "{D46B55A9-A32E-47AA-A4E8-F0C8B76D680D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospiceToolsChallenge.Infra", "HospiceToolsChallenge.Infra\HospiceToolsChallenge.Infra.csproj", "{B76B603C-9EE5-4E95-B1CB-0A83B21CB761}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospiceToolsChallenge.Api", "HospiceToolsChallenge.Api\HospiceToolsChallenge.Api.csproj", "{08960F2F-4BC9-F257-609E-EB7944663A9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64463E3F-0CC1-4FDC-9211-CD5E1DB71BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64463E3F-0CC1-4FDC-9211-CD5E1DB71BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64463E3F-0CC1-4FDC-9211-CD5E1DB71BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64463E3F-0CC1-4FDC-9211-CD5E1DB71BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D46B55A9-A32E-47AA-A4E8-F0C8B76D680D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D46B55A9-A32E-47AA-A4E8-F0C8B76D680D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D46B55A9-A32E-47AA-A4E8-F0C8B76D680D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D46B55A9-A32E-47AA-A4E8-F0C8B76D680D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B76B603C-9EE5-4E95-B1CB-0A83B21CB761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76B603C-9EE5-4E95-B1CB-0A83B21CB761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76B603C-9EE5-4E95-B1CB-0A83B21CB761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76B603C-9EE5-4E95-B1CB-0A83B21CB761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08960F2F-4BC9-F257-609E-EB7944663A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08960F2F-4BC9-F257-609E-EB7944663A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08960F2F-4BC9-F257-609E-EB7944663A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08960F2F-4BC9-F257-609E-EB7944663A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {884BE1D8-2D08-46D4-8E93-B93451668268}
+	EndGlobalSection
+EndGlobal
