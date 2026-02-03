@@ -9,7 +9,7 @@ namespace HospiceToolsChallenge.Application.Queries.Auth
     {
         public async Task<UserModel> Handle(GetUserByCredentialsQuery request, CancellationToken cancellationToken)
         {
-            var user = await _repository.GetByCredentials(request.Email, request.Password);
+            var user = await _repository.GetByCredentials(request.Username, request.Password);
             return MapUserModel(user);
         }
 

@@ -15,7 +15,7 @@ namespace HospiceToolsChallenge.Api.Controllers
         {
             var user = await Mediator.Send(new GetUserByCredentialsQuery
             {
-                Email = request.Email,
+                Username = request.Username,
                 Password = request.Password
             });
 

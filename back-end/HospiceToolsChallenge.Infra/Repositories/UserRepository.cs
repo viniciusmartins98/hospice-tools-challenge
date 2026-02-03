@@ -5,9 +5,9 @@ namespace HospiceToolsChallenge.Infra.Repositories
 {
     internal class UserRepository : IUserRepository
     {
-        public async Task<User> GetByCredentials(string email, string password)
+        public async Task<User> GetByCredentials(string username, string password)
         {
-            return _mockedUser.SingleOrDefault(x => x.Username == email && x.Password == password);
+            return _mockedUser.SingleOrDefault(x => x.Username == username && x.Password == password);
         }
 
         private IEnumerable<User> _mockedUser = [

@@ -4,6 +4,6 @@ namespace HospiceToolsChallenge.Application.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> GetByCredentials(string email, string password);
+        Task<User> GetByCredentials(string username, string password);
     }
 }
