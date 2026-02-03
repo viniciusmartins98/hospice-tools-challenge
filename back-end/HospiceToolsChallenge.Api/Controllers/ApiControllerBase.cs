@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HospiceToolsChallenge.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Authorize]
     public abstract class ApiControllerBase<T> : ControllerBase
     {
