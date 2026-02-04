@@ -52,18 +52,20 @@
             </td>
           </ng-container>
 
-          <tr class="mat-row" *matNoDataRow class="no-row-tr">
+          <tr class="mat-row no-row-tr" *matNoDataRow>
             <td class="mat-cell" [attr.colspan]="columns.length">
-              No data found.
+              No records found.
             </td>
           </tr>
           <tr mat-header-row *matHeaderRowDef="columns"></tr>
           <tr mat-row *matRowDef="let row; columns: columns"></tr>
         </table>
 
-        <mat-paginator [length]="patientResponse().totalItens" [pageSize]="pageSize()" [pageIndex]="page() - 1"
-          (page)="onPageChange($event)" aria-label="Select page">
-        </mat-paginator>
+        @if(patientResponse().totalItens) {
+          <mat-paginator [length]="patientResponse().totalItens" [pageSize]="pageSize()" [pageIndex]="page() - 1"
+            (page)="onPageChange($event)" aria-label="Select page">
+          </mat-paginator>
+        }
       </div>
 
     </mat-card-content>
