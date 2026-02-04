@@ -6,6 +6,7 @@ namespace HospiceToolsChallenge.Application.Models.Patients
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int? Age { get; set; }
         public GenderEnum? Gender { get; set; }
         public Guid? FavoriteColorId { get; set; }
     }

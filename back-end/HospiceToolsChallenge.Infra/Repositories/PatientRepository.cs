@@ -43,6 +43,7 @@ namespace HospiceToolsChallenge.Infra.Repositories
                     patient
                         .SetProperty(x => x.FirstName, model.FirstName)
                         .SetProperty(x => x.LastName, model.LastName)
+                        .SetProperty(x => x.Age, model.Age)
                         .SetProperty(x => x.FavoriteColorId, model.FavoriteColorId)
                         .SetProperty(x => x.Gender, gender)
                         .SetProperty(x => x.UpdatedAt, DateTime.UtcNow)
