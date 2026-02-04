@@ -62,7 +62,11 @@
         </table>
 
         @if(patientResponse().totalItens) {
-          <mat-paginator [length]="patientResponse().totalItens" [pageSize]="pageSize()" [pageIndex]="page() - 1"
+          <mat-paginator
+            showFirstLastButtons
+            [length]="patientResponse().totalItens"
+            [pageSize]="pageSize()"
+            [pageIndex]="page() - 1"
             (page)="onPageChange($event)" aria-label="Select page">
           </mat-paginator>
         }
