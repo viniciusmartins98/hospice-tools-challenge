@@ -9,6 +9,7 @@ namespace HospiceToolsChallenge.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetVersion()
         {
+            Logger.LogInformation("Getting app version");
             return Ok(new { Version = "1.0.0" });
         }
     }

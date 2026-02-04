@@ -4,8 +4,12 @@ using HospiceToolsChallenge.Api.Security.Auth;
 using HospiceToolsChallenge.Api.Security.Cors;
 using HospiceToolsChallenge.Api.Filters;
 using System.Text.Json.Serialization;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
 
