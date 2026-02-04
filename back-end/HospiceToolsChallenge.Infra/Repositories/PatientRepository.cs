@@ -2,6 +2,7 @@
 using HospiceToolsChallenge.Application.Repositories;
 using HospiceToolsChallenge.Domain.Entities;
 using HospiceToolsChallenge.Domain.Entities.Statistics;
+using HospiceToolsChallenge.Domain.Enums;
 using HospiceToolsChallenge.Domain.Filters;
 using HospiceToolsChallenge.Domain.Pagination;
 using HospiceToolsChallenge.Infra.Extensions;
@@ -62,7 +63,7 @@ namespace HospiceToolsChallenge.Infra.Repositories
 
             // List patients age and favorite color only
             var patientAgeAndFavoriteColors = await dbContext.PatientDb
-                .Select(p => new { p.Age, p.FavoriteColor })
+                .Select(p => new { p.Age, p.FavoriteColor, p.Gender })
                 .ToListAsync(cancellationToken);
 
             // Get patients count grouped by color
@@ -78,6 +79,24 @@ namespace HospiceToolsChallenge.Infra.Repositories
                         Name = g.Key.FavoriteColor.Name,
                     },
                     PatientsCount = g.Count()
+                })
+                .OrderByDescending(x => x.PatientsCount)
+                .ToArray();
+
+            // Get patients count grouped by color and gender
+            var patientsCountByColorAndGender = patientAgeAndFavoriteColors
+                .Where(x => x.FavoriteColor != null && x.Gender != null)
+                .GroupBy(p => new { p.Gender, p.FavoriteColor })
+                .Select(g => new PatientCountByColorAndGender
+                {
+                    Color = new Color
+                    {
+                        Id = g.Key.FavoriteColor.Id,
+                        HexCode = g.Key.FavoriteColor.HexCode,
+                        Name = g.Key.FavoriteColor.Name
+                    },
+                    PatientsCount = g.Count(),
+                    Gender = Enum.Parse<GenderEnum>(g.Key.Gender)
                 })
                 .OrderByDescending(x => x.PatientsCount)
                 .ToArray();
@@ -104,9 +123,11 @@ namespace HospiceToolsChallenge.Infra.Repositories
                 .ToArray();
 
             patientStatistics.PatientsCount = patientAgeAndFavoriteColors.Count();
+            patientStatistics.PatientsCount = patientAgeAndFavoriteColors.Count();
             patientStatistics.PatientsWithColorCount = patientAgeAndFavoriteColors.Where(x => x.FavoriteColor != null).Count();
             patientStatistics.PatientsWithNoColorsCount = patientAgeAndFavoriteColors.Where(x => x.FavoriteColor == null).Count();
             patientStatistics.PatientsCountByColor = patientsCountByColor;
+            patientStatistics.PatientsCountByColorAndGender = patientsCountByColorAndGender;
             patientStatistics.FavoriteColorPatientsCountByAgeRange = favoriteColorPatientCountByAgeRange;
             return patientStatistics;
         }

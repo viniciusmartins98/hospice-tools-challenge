@@ -10,6 +10,8 @@
 
         public PatientCountByColor[] PatientsCountByColor { get; set; } = [];
 
+        public PatientCountByColorAndGender[] PatientsCountByColorAndGender { get; set; } = [];
+
         public PatientFavoriteColorCountByAgeRange[] FavoriteColorPatientsCountByAgeRange { get; set; }
 
         public AgeRange[] GetAllAgeRanges()
