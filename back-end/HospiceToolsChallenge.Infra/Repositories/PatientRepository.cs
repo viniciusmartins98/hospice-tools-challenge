@@ -23,9 +23,10 @@ namespace HospiceToolsChallenge.Infra.Repositories
         {
             var patientNameFilter = filter.Filter.PatientName;
             return await dbContext.PatientDb
-                .Where(x => patientNameFilter == null || x.FirstName.ToUpper().Contains(patientNameFilter.ToUpper()) || x.LastName.ToUpper().Contains(patientNameFilter.ToUpper()))
-                .OrderBy(x => x.FirstName)
-                    .ThenBy(x => x.LastName)
+                .Where(x => patientNameFilter == null || 
+                    (x.FirstName + " " + x.LastName).ToUpper().Contains(patientNameFilter.ToUpper()))
+                .OrderBy(x => x.FirstName.ToUpper())
+                    .ThenBy(x => x.LastName.ToUpper())
                 .Include(x => x.FavoriteColor)
                 .Select(x => x.MapToEntity())
                 .ToPagedResultAsync(filter, cancellationToken);
