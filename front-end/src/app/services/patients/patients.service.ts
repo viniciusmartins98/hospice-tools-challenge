@@ -14,9 +14,13 @@ export class PatientsService {
   private readonly http = inject(HttpClient);
 
   listPatients(filter: IPatientFilter) {
-    return this.http.get<IPaginatedResponse<IPatient>>(`${this._baseUrl}/patients`, {
-      params: { ...filter } as Record<string, string | number | boolean>
+    const params = new URLSearchParams({
+      'page': filter.page.toString(),
+      'pageSize': filter.pageSize.toString(),
+      'filter.patientName': filter.patientName
     });
+
+    return this.http.get<IPaginatedResponse<IPatient>>(`${this._baseUrl}/patients?${params.toString()}`);
   }
 
   addPatient(patient: ICreatePatient) {

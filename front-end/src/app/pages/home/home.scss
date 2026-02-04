@@ -1,3 +1,5 @@
+@use "../../../theme/colors" as *;
+
 .search-container {
   display: flex;
   align-items: center;
@@ -9,4 +11,46 @@
 .table-container {
   margin-top: 1rem;
   overflow-x: auto;
+
+  .table-loading {
+    opacity: 0.5;
+    animation: loading-pulse 1s infinite;
+  }
+
+  .no-row-tr {
+    td {
+      width: 100%;
+      text-align: center;
+      color: $text-secondary;
+    }
+  }
+
+  .color-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $text-secondary
+  }
+}
+
+@keyframes loading-pulse {
+  0% {
+    opacity: 0.7;
+  }
+
+  25% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+
+  75% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
 }

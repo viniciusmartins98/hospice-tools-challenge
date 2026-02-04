@@ -1,3 +1,5 @@
+import IColor from "./color";
+
 export default interface IPatient {
   id: string;
   firstName: string;
@@ -5,7 +7,7 @@ export default interface IPatient {
   fullName: string;
   gender: string;
   age: number;
-  favoriteColor: string;
+  favoriteColor: IColor;
   createdAt: Date;
   updatedAt: Date;
 }

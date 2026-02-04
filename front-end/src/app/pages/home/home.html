@@ -9,14 +9,14 @@
           <mat-label>Search by patient name</mat-label>
           <input matInput [(ngModel)]="patientName">
         </mat-form-field>
-        <button mat-flat-button (click)="search()">
+        <button mat-flat-button>
           <mat-icon>add</mat-icon>
           Add New Patient
         </button>
       </div>
 
       <div class="table-container">
-        <table mat-table [dataSource]="patients()">
+        <table mat-table [dataSource]="patients()" [ngClass]="{'table-loading': loadingPatients()}">
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
             <td mat-cell *matCellDef="let patient"> {{patient.fullName}} </td>
@@ -31,7 +31,12 @@
           </ng-container>
           <ng-container matColumnDef="favoriteColor">
             <th mat-header-cell *matHeaderCellDef> Favorite Color </th>
-            <td mat-cell *matCellDef="let patient"> {{patient.favoriteColor}} </td>
+            <td mat-cell *matCellDef="let patient">
+              <span class="color-container">
+                <mat-icon [style.color]="patient.favoriteColor.hexCode">circle</mat-icon>
+                {{patient.favoriteColor.name}}
+              </span>
+            </td>
           </ng-container>
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
@@ -44,9 +49,19 @@
               </button>
             </td>
           </ng-container>
+
+          <tr class="mat-row" *matNoDataRow class="no-row-tr">
+            <td class="mat-cell" [attr.colspan]="columns.length">
+              No data found.
+            </td>
+          </tr>
           <tr mat-header-row *matHeaderRowDef="columns"></tr>
           <tr mat-row *matRowDef="let row; columns: columns"></tr>
         </table>
+
+        <mat-paginator [length]="patientResponse().totalItens" [pageSize]="pageSize()" [pageIndex]="page() - 1"
+          (page)="onPageChange($event)" aria-label="Select page">
+        </mat-paginator>
       </div>
 
     </mat-card-content>
