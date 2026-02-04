@@ -33,7 +33,7 @@ export class PatientForm implements OnInit {
   patientForm = new FormGroup({
     firstName: new FormControl('', [
       Validators.required,
-      Validators.minLength(1),
+      Validators.minLength(2),
       Validators.maxLength(50),
     ]),
     lastName: new FormControl('', [
