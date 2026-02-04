@@ -5,6 +5,7 @@ $header-height: 90px;
 
 .app-container {
   height: 100vh;
+  background-color: $bg-color;
 
   .sidenav {
     margin-top: $header-height;

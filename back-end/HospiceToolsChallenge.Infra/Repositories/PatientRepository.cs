@@ -85,6 +85,7 @@ namespace HospiceToolsChallenge.Infra.Repositories
             // List patient by age ranges and count the favorite colors for each age range
             AgeRange[] ageRanges = patientStatistics.GetAllAgeRanges();
             var favoriteColorPatientCountByAgeRange = patientAgeAndFavoriteColors
+                .Where(p => p.FavoriteColor != null)
                 .Select(p => new
                 {
                     p.FavoriteColor,
