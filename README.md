@@ -26,10 +26,11 @@ This project uses a hosted PostgreSQL instance on **NeonDB**.
 * All data is persisted to this server-side store and will remain available at NeonDB.
 
 ### 3. Running the Back-End (.NET 8)
-1. Open the solution file: `HospiceToolsChallenge.sln`.
-2. Navigate to the Back-end directory `/back-end` and run via CLI:
+1. To run using Visual Studio, open the solution file: `HospiceToolsChallenge.sln`. and run "http" launch profile
+   
+2. To run using the CLI you can navigate to the Back-end directory `/back-end` and run via CLI:
    ```bash
-   dotnet run --project HospiceToolsChallenge.Api/HospiceToolsChallenge.Api.csproj
+   dotnet watch run --project HospiceToolsChallenge.Api/HospiceToolsChallenge.Api.csproj
    ```
 
 ### 4. Running the Front-End (Angular 21)
