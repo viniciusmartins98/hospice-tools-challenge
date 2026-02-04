@@ -4,6 +4,8 @@ import IPatientFavoriteColorCountByAgeRange from './patient-favorite-color-count
 
 export default interface IPatientStatistics {
   patientsCount: number;
+  maleCount: number;
+  femaleCount: number;
   patientsWithColorCount: number;
   patientsWithNoColorsCount: number;
   patientsCountByColor: IPatientCountByColor[];

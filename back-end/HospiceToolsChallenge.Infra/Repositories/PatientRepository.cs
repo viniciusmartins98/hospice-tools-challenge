@@ -123,7 +123,8 @@ namespace HospiceToolsChallenge.Infra.Repositories
                 .ToArray();
 
             patientStatistics.PatientsCount = patientAgeAndFavoriteColors.Count();
-            patientStatistics.PatientsCount = patientAgeAndFavoriteColors.Count();
+            patientStatistics.MaleCount = patientAgeAndFavoriteColors.Where(x => x.Gender == GenderEnum.Male.ToString()).Count();
+            patientStatistics.FemaleCount = patientAgeAndFavoriteColors.Where(x => x.Gender == GenderEnum.Female.ToString()).Count();
             patientStatistics.PatientsWithColorCount = patientAgeAndFavoriteColors.Where(x => x.FavoriteColor != null).Count();
             patientStatistics.PatientsWithNoColorsCount = patientAgeAndFavoriteColors.Where(x => x.FavoriteColor == null).Count();
             patientStatistics.PatientsCountByColor = patientsCountByColor;

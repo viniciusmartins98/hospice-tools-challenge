@@ -4,6 +4,10 @@
     {
         public int PatientsCount { get; set; }
 
+        public int MaleCount { get; set; }
+
+        public int FemaleCount { get; set; }
+
         public int PatientsWithColorCount { get; set; }
 
         public int PatientsWithNoColorsCount { get; set; }

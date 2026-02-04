@@ -18,6 +18,20 @@
 
     <mat-card class="summary-card">
       <mat-card-content>
+        <span class="stat-number">{{ totalMale() }}</span>
+        <span class="stat-label">Male Patients</span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <span class="stat-number">{{ totalFemale() }}</span>
+        <span class="stat-label">Female Patients</span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
         <span class="stat-number">{{ patientsWithColor() }}</span>
         <span class="stat-label">With Favorite Color</span>
       </mat-card-content>

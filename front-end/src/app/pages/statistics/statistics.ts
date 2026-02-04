@@ -41,6 +41,8 @@ export class Statistics implements OnInit {
   });
 
   totalPatients = computed(() => this.patientStatistics()?.patientsCount);
+  totalMale = computed(() => this.patientStatistics()?.maleCount);
+  totalFemale = computed(() => this.patientStatistics()?.femaleCount);
   patientsWithColor = computed(() => this.patientStatistics()?.patientsWithColorCount);
   patientsWithoutColor = computed(() => this.patientStatistics()?.patientsWithNoColorsCount);
   patientsByColorAndGender = computed(
