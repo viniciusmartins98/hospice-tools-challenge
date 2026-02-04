@@ -16,8 +16,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error) => {
       switch (error.status) {
         case 401:
-          const isAuthenticated = !!sessionStorage.getItem(ACCESS_TOKEN_KEY)
-          if (isAuthenticated) {
+          const currentRouteRequiresAuthentication = !!window.location.href.includes('app');
+          if (currentRouteRequiresAuthentication) {
             snackBar.open('Session expired... Please sign in again.', 'OK', {
               duration: 5000,
             });
@@ -33,6 +33,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           break;
       }
       return throwError(() => error);
-    })
+    }),
   );
 };
