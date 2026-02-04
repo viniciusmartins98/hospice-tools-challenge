@@ -6,6 +6,7 @@ import { ColorsService } from '../../services/colors/colors.service';
 import { PatientsService } from '../../services/patients/patients.service';
 import IColor from '../../services/colors/interfaces/color';
 import IPatient from '../../services/patients/interfaces/patient';
+import IPatientStatistics from '../../services/patients/interfaces/patient-statistics';
 
 interface ColorStat {
   color: IColor;
@@ -22,47 +23,43 @@ export class Statistics implements OnInit {
   private readonly colorsService = inject(ColorsService);
   private readonly patientsService = inject(PatientsService);
 
-  patients = signal<IPatient[]>([]);
+  patientStatistics = signal<IPatientStatistics | null>(null);
   isLoading = signal(true);
 
   colorStats = computed<ColorStat[]>(() => {
     const colors = this.colorsService.colors();
-    const patients = this.patients();
+    const patients = this.patientStatistics()?.patientsCountByColor ?? [];
 
-    return colors.map(color => ({
-      color,
-      count: patients.filter(p => p.favoriteColor?.id === color.id).length
-    })).sort((a, b) => b.count - a.count);
+    return colors
+      .map((color) => ({
+        color,
+        count: patients.find((p) => p.color.id === color.id)?.patientsCount ?? 0,
+      }))
+      .sort((a, b) => b.count - a.count);
   });
 
-  totalPatients = computed(() => this.patients().length);
-
-  patientsWithColor = computed(() =>
-    this.patients().filter(p => p.favoriteColor !== null).length
-  );
-
-  patientsWithoutColor = computed(() =>
-    this.patients().filter(p => p.favoriteColor === null).length
+  totalPatients = computed(() => this.patientStatistics()?.patientsCount);
+  patientsWithColor = computed(() => this.patientStatistics()?.patientsWithColorCount);
+  patientsWithoutColor = computed(() => this.patientStatistics()?.patientsWithNoColorsCount);
+  //TODO: complete
+  favoriteColorPatientsCountByAgeRange = computed(
+    () => this.patientStatistics()?.favoriteColorPatientsCountByAgeRange,
   );
 
   ngOnInit() {
-    this.loadPatients();
+    this._loadPatients();
   }
 
-  loadPatients() {
+  private _loadPatients() {
     this.isLoading.set(true);
-    this.patientsService.listPatients({
-      page: 1,
-      pageSize: 1000,
-      patientName: ''
-    }).subscribe({
+    this.patientsService.getPatientStastistics().subscribe({
       next: (response) => {
-        this.patients.set(response.data);
+        this.patientStatistics.set(response);
         this.isLoading.set(false);
       },
       error: () => {
         this.isLoading.set(false);
-      }
+      },
     });
   }
 }

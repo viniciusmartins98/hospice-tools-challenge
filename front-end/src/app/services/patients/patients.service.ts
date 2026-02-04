@@ -5,6 +5,7 @@ import IPatient from './interfaces/patient';
 import { HttpClient } from '@angular/common/http';
 import IPaginatedResponse from '../../models/paginated-response';
 import IPatientRequest from './interfaces/patient-request';
+import IPatientStatistics from './interfaces/patient-statistics';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,18 @@ export class PatientsService {
 
   listPatients(filter: IPatientFilter) {
     const params = new URLSearchParams({
-      'page': filter.page.toString(),
-      'pageSize': filter.pageSize.toString(),
-      'filter.patientName': filter.patientName
+      page: filter.page.toString(),
+      pageSize: filter.pageSize.toString(),
+      'filter.patientName': filter.patientName,
     });
 
-    return this.http.get<IPaginatedResponse<IPatient>>(`${this._baseUrl}/patients?${params.toString()}`);
+    return this.http.get<IPaginatedResponse<IPatient>>(
+      `${this._baseUrl}/patients?${params.toString()}`,
+    );
+  }
+
+  getPatientStastistics() {
+    return this.http.get<IPatientStatistics>(`${this._baseUrl}/patients/statistics`);
   }
 
   addPatient(patient: IPatientRequest) {
