@@ -13,7 +13,7 @@ namespace HospiceToolsChallenge.Infra.Persistence.Models.Extensions
             }
 
             GenderEnum? gender = null;
-            if (!Enum.TryParse<GenderEnum>(patient.Gender, out GenderEnum result))
+            if (Enum.TryParse(patient.Gender, out GenderEnum result))
             {
                 gender = result;
             }
