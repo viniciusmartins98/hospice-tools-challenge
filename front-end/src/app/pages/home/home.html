@@ -71,7 +71,7 @@
 </div>
 
 <ng-template #patientFormDialog>
-  <h2 mat-dialog-title>Patient</h2>
+  <h2 mat-dialog-title>{{editingPatient() ? 'Edit' : 'New'}} Patient</h2>
   <mat-dialog-content>
     <app-patient-form #form [patient]="editingPatient()" (onSubmit)="addOrUpdatePatient($event)" />
   </mat-dialog-content>

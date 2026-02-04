@@ -111,7 +111,10 @@ export class Home implements OnInit, OnDestroy {
 
   openPatientFormDialog(patient?: IPatient) {
     this.editingPatient.set(patient ?? null);
-    this._matDialog.open(this._patientFormDialogRef);
+    this._matDialog.open(this._patientFormDialogRef, {
+      width: '100%',
+      maxWidth: '550px',
+    });
   }
 
 

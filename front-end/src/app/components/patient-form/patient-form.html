@@ -1,6 +1,6 @@
 <form [formGroup]="patientForm" class="patient-form" (ngSubmit)="validateAndSubmit()">
   <!-- First Name Field -->
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field class="full-width">
     <mat-label>First Name</mat-label>
     <input matInput [formControl]="patientForm.controls.firstName" placeholder="Enter first name">
     @if (patientForm.controls.firstName.invalid) {
@@ -11,7 +11,7 @@
   </mat-form-field>
 
   <!-- Last Name Field -->
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field class="full-width">
     <mat-label>Last Name</mat-label>
     <input matInput [formControl]="patientForm.controls.lastName" placeholder="Enter last name">
     @if (patientForm.controls.lastName.invalid) {
@@ -22,7 +22,7 @@
   </mat-form-field>
 
   <!-- Gender Field -->
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field class="full-width">
     <mat-label>Gender</mat-label>
     <mat-select [formControl]="patientForm.controls.gender">
       @for(gender of genderOptions; track gender.value) {
@@ -39,7 +39,7 @@
   </mat-form-field>
 
   <!-- Age Field -->
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field class="full-width">
     <mat-label>Age</mat-label>
     <input matInput type="number" [formControl]="patientForm.controls.age" placeholder="Enter age">
     @if (patientForm.controls.age.invalid) {
@@ -50,7 +50,7 @@
   </mat-form-field>
 
   <!-- Favorite Color Field -->
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field class="full-width">
     <mat-label>Favorite Color</mat-label>
     <mat-select [formControl]="patientForm.controls.favoriteColorId">
       @for(color of colorOptions(); track color.id) {
