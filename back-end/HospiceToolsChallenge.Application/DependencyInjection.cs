@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using HospiceToolsChallenge.Application.Behaviors;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace HospiceToolsChallenge.Application
 {
@@ -6,8 +9,15 @@ namespace HospiceToolsChallenge.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            var assembly = typeof(DependencyInjection).Assembly;
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(assembly));
+            var assembly = Assembly.GetAssembly(typeof(DependencyInjection));
+            services
+                .AddMediatR(config =>
+                {
+                    config.RegisterServicesFromAssembly(assembly);
+                    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                })
+                .AddValidatorsFromAssembly(assembly);
+
             return services;
         }
     }

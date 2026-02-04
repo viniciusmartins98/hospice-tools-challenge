@@ -2,6 +2,7 @@ using HospiceToolsChallenge.Api;
 using HospiceToolsChallenge.Api.Middlewares;
 using HospiceToolsChallenge.Api.Security.Auth;
 using HospiceToolsChallenge.Api.Security.Cors;
+using HospiceToolsChallenge.Api.Filters;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services
-    .AddControllers()
+    .AddControllers(options => options.AddFilters())
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(
