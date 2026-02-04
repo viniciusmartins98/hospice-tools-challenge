@@ -70,7 +70,11 @@
     <mat-card class="age-group-card">
       <mat-card-header>
         <mat-card-title class="age-range-title">
+          @if(ageRangeColors[0].ageRange.to) {
           {{ ageRangeColors[0].ageRange.from }} - {{ ageRangeColors[0].ageRange.to }} years
+          } @else {
+          {{ ageRangeColors[0].ageRange.from }}+ years
+          }
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
