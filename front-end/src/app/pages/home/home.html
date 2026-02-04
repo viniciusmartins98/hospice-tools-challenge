@@ -73,7 +73,7 @@
 <ng-template #patientFormDialog>
   <h2 mat-dialog-title>Patient</h2>
   <mat-dialog-content>
-    <app-patient-form #form [patient]="editingPatient()" (onSubmit)="onSubmitPatient($event)" />
+    <app-patient-form #form [patient]="editingPatient()" (onSubmit)="addOrUpdatePatient($event)" />
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
