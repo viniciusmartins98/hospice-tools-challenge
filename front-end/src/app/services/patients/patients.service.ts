@@ -3,7 +3,7 @@ import consts from '../../../consts';
 import IPatientFilter from './interfaces/patient-filter';
 import IPatient from './interfaces/patient';
 import { HttpClient } from '@angular/common/http';
-import IPaginatedResponse from '../../models/paginated-response';
+import IPaginatedResponse from './interfaces/paginated-response';
 import IPatientRequest from './interfaces/patient-request';
 import IPatientStatistics from './interfaces/patient-statistics';
 

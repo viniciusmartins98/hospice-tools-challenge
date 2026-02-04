@@ -10,7 +10,7 @@ import IPatient from '../../services/patients/interfaces/patient';
 import { PatientsService } from '../../services/patients/patients.service';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, finalize, Subscription, tap } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import IPaginatedResponse from '../../models/paginated-response';
+import IPaginatedResponse from '../../services/patients/interfaces/paginated-response';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgClass } from '@angular/common';
 import { PatientForm } from '../../components/patient-form/patient-form';

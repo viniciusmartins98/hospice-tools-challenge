@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import IAuthRequest from './interfaces/auth-request';
 import IAuthResponse from './interfaces/auth-response';
-import IUser from '../../models/user';
+import IUser from './interfaces/user';
 import consts from '../../../consts';
 import { Router } from '@angular/router';
 
