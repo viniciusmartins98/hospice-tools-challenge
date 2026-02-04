@@ -160,16 +160,28 @@ export class Home implements OnInit, OnDestroy {
   addOrUpdatePatient(patient: IPatientFormOutput) {
     this.persisting.set(true);
     if (this.editingPatient()) {
-      this._patientsService.updatePatient(this.editingPatient()!.id, patient).subscribe(() => {
-        this.persisting.set(false);
-        this._matDialog.closeAll();
-        this._fetchPatients();
+      this._patientsService.updatePatient(this.editingPatient()!.id, patient).subscribe({
+        next: () => {
+          this.persisting.set(false);
+          this._matDialog.closeAll();
+          this._fetchPatients();
+        },
+        error: (error) => {
+          this.persisting.set(false);
+          console.error(error);
+        },
       });
     } else {
-      this._patientsService.addPatient(patient).subscribe(() => {
-        this.persisting.set(false);
-        this._matDialog.closeAll();
-        this._fetchPatients();
+      this._patientsService.addPatient(patient).subscribe({
+        next: () => {
+          this.persisting.set(false);
+          this._matDialog.closeAll();
+          this._fetchPatients();
+        },
+        error: (error) => {
+          this.persisting.set(false);
+          console.error(error);
+        },
       });
     }
   }
