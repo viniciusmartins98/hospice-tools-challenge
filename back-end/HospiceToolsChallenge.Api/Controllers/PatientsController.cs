@@ -2,7 +2,6 @@
 using HospiceToolsChallenge.Application.Models.Patients;
 using HospiceToolsChallenge.Application.Queries.Patients;
 using HospiceToolsChallenge.Domain.Pagination;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,7 +56,7 @@ namespace HospiceToolsChallenge.Api.Controllers
             return NoContent();
         }
 
-        [HttpGet("/statistics")]
+        [HttpGet("statistics")]
         public async Task<IActionResult> Statistics()
         {
             var result = await Mediator.Send(new GetPatientStatisticsQuery());
