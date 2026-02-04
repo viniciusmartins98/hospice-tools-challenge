@@ -54,9 +54,14 @@ export class Home implements OnInit, OnDestroy {
   });
   patients = computed(() => this.patientResponse().data);
   loadingPatients = signal(false);
+  persisting = signal(false);
 
   @ViewChild('patientFormDialog')
   private readonly _patientFormDialogRef!: TemplateRef<any>;
+
+  @ViewChild('confirmDeletionDialog')
+  private readonly _confirmDeletionDialogRef!: TemplateRef<any>;
+
   private _subscriptionsToUnsubscribe: Subscription[] = [];
 
   columns = ['name', 'gender', 'age', 'favoriteColor', 'actions'];
@@ -117,25 +122,42 @@ export class Home implements OnInit, OnDestroy {
     });
   }
 
+  openDeletePatientDialog(patientId: string) {
+    this._matDialog.open(this._confirmDeletionDialogRef, {
+      width: '100%',
+      maxWidth: '550px',
+      data: {
+        patientId
+      }
+    });
+  }
+
 
   addOrUpdatePatient(patient: IPatientFormOutput) {
+    this.persisting.set(true);
     if (this.editingPatient()) {
       this._patientsService.updatePatient(this.editingPatient()!.id, patient)
         .subscribe(() => {
+          this.persisting.set(false);
+          this._matDialog.closeAll();
           this._fetchPatients();
         });
     } else {
       this._patientsService.addPatient(patient)
         .subscribe(() => {
+          this.persisting.set(false);
+          this._matDialog.closeAll();
           this._fetchPatients();
         });
     }
-    this._matDialog.closeAll();
   }
 
   deletePatient(patientId: string) {
+    this.persisting.set(true);
     this._patientsService.deletePatient(patientId)
       .subscribe(() => {
+        this.persisting.set(false);
+        this._matDialog.closeAll();
         this._fetchPatients();
       });
   }
