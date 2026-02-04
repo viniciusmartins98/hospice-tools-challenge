@@ -3,8 +3,8 @@ import consts from '../../../consts';
 import IPatientFilter from './interfaces/patient-filter';
 import IPatient from './interfaces/patient';
 import { HttpClient } from '@angular/common/http';
-import ICreatePatient from './interfaces/create-patient';
 import IPaginatedResponse from '../../models/paginated-response';
+import IPatientRequest from './interfaces/patient-request';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,15 @@ export class PatientsService {
     return this.http.get<IPaginatedResponse<IPatient>>(`${this._baseUrl}/patients?${params.toString()}`);
   }
 
-  addPatient(patient: ICreatePatient) {
+  addPatient(patient: IPatientRequest) {
     return this.http.post(`${this._baseUrl}/patients`, patient);
+  }
+
+  updatePatient(patientId: string, request: IPatientRequest) {
+    return this.http.put(`${this._baseUrl}/patients/${patientId}`, request);
+  }
+
+  deletePatient(patientId: string) {
+    return this.http.delete(`${this._baseUrl}/patients/${patientId}`);
   }
 }

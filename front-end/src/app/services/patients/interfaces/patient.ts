@@ -1,3 +1,4 @@
+import { GenderEnum } from "../enums/gender.enum";
 import IColor from "./color";
 
 export default interface IPatient {
@@ -5,9 +6,9 @@ export default interface IPatient {
   firstName: string;
   lastName: string;
   fullName: string;
-  gender: string;
-  age: number;
-  favoriteColor: IColor;
+  gender: GenderEnum | null;
+  age: number | null;
+  favoriteColor: IColor | null;
   createdAt: Date;
   updatedAt: Date;
 }

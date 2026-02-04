@@ -9,7 +9,7 @@
           <mat-label>Search by patient name</mat-label>
           <input matInput [(ngModel)]="patientName">
         </mat-form-field>
-        <button mat-flat-button>
+        <button mat-flat-button (click)="openPatientFormDialog()">
           <mat-icon>add</mat-icon>
           Add New Patient
         </button>
@@ -32,19 +32,21 @@
           <ng-container matColumnDef="favoriteColor">
             <th mat-header-cell *matHeaderCellDef> Favorite Color </th>
             <td mat-cell *matCellDef="let patient">
+              @if (patient.favoriteColor) {
               <span class="color-container">
                 <mat-icon [style.color]="patient.favoriteColor.hexCode">circle</mat-icon>
                 {{patient.favoriteColor.name}}
               </span>
+              }
             </td>
           </ng-container>
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let patient">
-              <button mat-icon-button>
+              <button mat-icon-button (click)="openPatientFormDialog(patient)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button>
+              <button mat-icon-button (click)="deletePatient(patient.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
@@ -67,3 +69,14 @@
     </mat-card-content>
   </mat-card>
 </div>
+
+<ng-template #patientFormDialog>
+  <h2 mat-dialog-title>Patient</h2>
+  <mat-dialog-content>
+    <app-patient-form #form [patient]="editingPatient()" (onSubmit)="onSubmitPatient($event)" />
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button (click)="form.validateAndSubmit()">Save</button>
+  </mat-dialog-actions>
+</ng-template>

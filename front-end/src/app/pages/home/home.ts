@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, model, OnDestroy, OnInit, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, model, OnDestroy, OnInit, signal, TemplateRef, untracked, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,6 +13,9 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import IPaginatedResponse from '../../models/paginated-response';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgClass } from '@angular/common';
+import { PatientForm } from '../../components/patient-form/patient-form';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import IPatientFormOutput from '../../components/patient-form/interfaces/patient-form-output';
 
 @Component({
   selector: 'app-home',
@@ -25,14 +28,18 @@ import { NgClass } from '@angular/common';
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     FormsModule,
-    NgClass
+    PatientForm,
+    NgClass,
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home implements OnInit, OnDestroy {
   private readonly _patientsService = inject(PatientsService);
+  private readonly _matDialog = inject(MatDialog);
+  editingPatient = signal<IPatient | null>(null);
   page = signal(1);
   pageSize = signal(5);
   patientName = model('');
@@ -47,6 +54,9 @@ export class Home implements OnInit, OnDestroy {
   });
   patients = computed(() => this.patientResponse().data);
   loadingPatients = signal(false);
+
+  @ViewChild('patientFormDialog')
+  private readonly _patientFormDialogRef!: TemplateRef<any>;
   private _subscriptionsToUnsubscribe: Subscription[] = [];
 
   columns = ['name', 'gender', 'age', 'favoriteColor', 'actions'];
@@ -68,9 +78,13 @@ export class Home implements OnInit, OnDestroy {
     })
   }
 
-  onPageChange(event: PageEvent) {
-    this.page.set(event.pageIndex + 1);
-    this.pageSize.set(event.pageSize);
+  ngOnInit(): void {
+    const subscription = this.patientFilterName$
+      .pipe(distinctUntilChanged(), debounceTime(500))
+      .subscribe(() => {
+        this._fetchPatients();
+      });
+    this._subscriptionsToUnsubscribe.push(subscription);
   }
 
   private _fetchPatients() {
@@ -90,13 +104,37 @@ export class Home implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void {
-    const subscription = this.patientFilterName$
-      .pipe(distinctUntilChanged(), debounceTime(500))
+  onPageChange(event: PageEvent) {
+    this.page.set(event.pageIndex + 1);
+    this.pageSize.set(event.pageSize);
+  }
+
+  openPatientFormDialog(patient?: IPatient) {
+    this.editingPatient.set(patient ?? null);
+    this._matDialog.open(this._patientFormDialogRef);
+  }
+
+
+  addOrUpdatePatient(patient: IPatientFormOutput) {
+    if (this.editingPatient()) {
+      this._patientsService.updatePatient(this.editingPatient()!.id, patient)
+        .subscribe(() => {
+          this._fetchPatients();
+        });
+    } else {
+      this._patientsService.addPatient(patient)
+        .subscribe(() => {
+          this._fetchPatients();
+        });
+    }
+    this._matDialog.closeAll();
+  }
+
+  deletePatient(patientId: string) {
+    this._patientsService.deletePatient(patientId)
       .subscribe(() => {
         this._fetchPatients();
       });
-    this._subscriptionsToUnsubscribe.push(subscription);
   }
 
   ngOnDestroy(): void {
