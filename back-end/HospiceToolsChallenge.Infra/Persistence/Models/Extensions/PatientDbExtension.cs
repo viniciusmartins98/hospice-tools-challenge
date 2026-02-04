@@ -49,12 +49,6 @@ namespace HospiceToolsChallenge.Infra.Persistence.Models.Extensions
                 Age = patient.Age,
                 CreatedAt = patient.CreatedAt,
                 UpdatedAt = patient.UpdatedAt,
-                FavoriteColor = patient.FavoriteColor != null ? new ColorDb
-                {
-                    Id = patient.FavoriteColor.Id,
-                    Name = patient.FavoriteColor.Name,
-                    HexCode = patient.FavoriteColor.HexCode,
-                } : null,
                 FirstName = patient.FirstName,
                 LastName = patient.LastName,
                 Gender = patient.Gender?.ToString(),
