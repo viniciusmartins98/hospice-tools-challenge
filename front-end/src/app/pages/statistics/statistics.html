@@ -1,1 +1,105 @@
-<p>statistics works!</p>
+<div class="statistics-page">
+  <h1>Patient Statistics</h1>
+
+  @if (isLoading()) {
+  <div class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading statistics...</p>
+  </div>
+  } @else {
+  <!-- Summary Cards -->
+  <div class="summary-grid">
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <span class="stat-number">{{ totalPatients() }}</span>
+        <span class="stat-label">Total Patients</span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <span class="stat-number">{{ patientsWithColor() }}</span>
+        <span class="stat-label">With Favorite Color</span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <span class="stat-number">{{ patientsWithoutColor() }}</span>
+        <span class="stat-label">No Color Selected</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Color Preference Cards -->
+  <h2>Favorite Colors</h2>
+  <p class="section-description">Number of patients who prefer each color</p>
+
+  <div class="colors-grid">
+    @for (stat of colorStats(); track stat.color.id) {
+    <mat-card class="color-card" [style.border-color]="stat.color.hexCode">
+      <mat-card-content>
+        <span class="patient-count">{{ stat.count }}</span>
+        <span class="color-name">{{ stat.color.name }}</span>
+        <span class="patient-label">{{ stat.count === 1 ? 'patient' : 'patients' }}</span>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+
+  <!-- Colors by Age Group -->
+  <h2>Favorite Colors by Age Group</h2>
+  <p class="section-description">The most preferred color in each age group</p>
+
+  <div class="age-group-grid">
+    <mat-card class="age-group-card" [style.border-color]="'#0000ff'">
+      <mat-card-content>
+        <span class="age-group-label">0-17</span>
+        <span class="patient-count">10</span>
+        <span class="color-label">blue</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="age-group-card" [style.border-color]="'#ff0000'">
+      <mat-card-content>
+        <span class="age-group-label">18-30</span>
+        <span class="patient-count">10</span>
+        <span class="color-label">red</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="age-group-card" [style.border-color]="'#ff0000'">
+      <mat-card-content>
+        <span class="age-group-label">31-45</span>
+        <span class="patient-count">10</span>
+        <span class="color-label">red</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="age-group-card" [style.border-color]="'#ff0000'">
+      <mat-card-content>
+        <span class="age-group-label">46-60</span>
+        <span class="patient-count">10</span>
+        <span class="color-label">red</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="age-group-card" [style.border-color]="'#ff0000'">
+      <mat-card-content>
+        <span class="age-group-label">61-75</span>
+        <span class="patient-count">10</span>
+        <span class="color-label">red</span>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="age-group-card" [style.border-color]="'#ffff00'">
+      <mat-card-content>
+        <span class="age-group-label">76+</span>
+        <span class="patient-count">10</span>
+        <span class="color-label">yellow</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  @if (colorStats().length === 0) {
+  <div class="empty-state">
+    <p>No colors available to display statistics.</p>
+  </div>
+  }
+  }
+</div>

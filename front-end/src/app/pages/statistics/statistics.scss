@@ -1,0 +1,219 @@
+@use "../../../theme/colors" as *;
+
+.statistics-page {
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    color: $text-color;
+  }
+
+  h2 {
+    margin: 2rem 0 0.5rem;
+    color: $text-color;
+    font-weight: 500;
+  }
+
+  .section-description {
+    color: $text-secondary;
+    margin-bottom: 1rem;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 1rem;
+
+  p {
+    color: $text-secondary;
+  }
+}
+
+// Summary Cards Grid
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+
+  .summary-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    background-color: $primary-color;
+    color: #fff;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem !important;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+
+// Color Preference Cards Grid
+.colors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+
+  .color-card {
+    border-width: 2px;
+    color: #000;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem !important;
+      text-align: center;
+      position: relative;
+    }
+
+    .patient-count {
+      font-size: 3rem;
+      font-weight: 600;
+      line-height: 1;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .color-name {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      text-transform: capitalize;
+    }
+
+    .patient-label {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+}
+
+// Age Group Grid
+.age-group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+
+  .age-group-card {
+    color: #000;
+    border-width: 2px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem !important;
+      text-align: center;
+      position: relative;
+    }
+
+    .age-group-label {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      text-transform: capitalize;
+    }
+
+    .patient-count {
+      font-size: 3rem;
+      font-weight: 600;
+      line-height: 1;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .patient-label {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .color-label {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+}
+
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+  color: $text-secondary;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .statistics-page {
+    padding: 1rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .colors-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .age-group-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .color-card {
+    .patient-count {
+      font-size: 2.5rem;
+    }
+  }
+}
