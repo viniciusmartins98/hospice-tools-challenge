@@ -1,9 +1,7 @@
 # Hospice Tools Coding Exercise
 
 ## 📋 Overview
-This is a Single Page Application (SPA) developed as part of a technical exercise for **Hospice Tools**. The application manages **Patient** preferences, allowing users to collect and visualize demographic data and favorite colors with full server-side persistence.
-
-By utilizing the "Patient" entity, this solution anticipates the needs of a healthcare business user by providing organized, domain-specific insights.
+This is a Single Page Application (SPA) developed as part of a technical exercise for **Hospice Tools**. The application manages **Patient** color preferences, allowing users to collect and visualize data and favorite colors with full server-side persistence.
 
 ## 🛠️ Tech Stack
 * **Back-End:** .NET 8 (C#)
@@ -55,7 +53,7 @@ Access the application using the default credentials:
 ## 💡 Key Features
 * **Patient Dashboard:** A primary view featuring a table of all prior entries.
 * **Preference Statistics:** Dynamic analytics displaying which colors are most popular within specific age groups.
-* **Patient CRUD:** A user-friendly form to create, read, update and delete patients.
+* **Patient CRUD:** User-friendly form and table to create, read, update and delete patients.
 ---
 
 *This project was developed as part of a coding exercise for Hospice Tools.*
