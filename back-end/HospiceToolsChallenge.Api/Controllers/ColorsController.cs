@@ -1,5 +1,4 @@
 ﻿using HospiceToolsChallenge.Application.Queries.Colors;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospiceToolsChallenge.Api.Controllers
