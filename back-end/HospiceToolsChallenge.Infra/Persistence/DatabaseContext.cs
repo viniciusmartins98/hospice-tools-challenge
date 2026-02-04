@@ -48,7 +48,7 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");
             entity.Property(e => e.FavoriteColorId).HasColumnName("favorite_color_id");
             entity.Property(e => e.FirstName)
@@ -60,9 +60,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.LastName)
                 .HasMaxLength(50)
                 .HasColumnName("last_name");
-            entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
             entity.HasOne(d => d.FavoriteColor).WithMany(p => p.PatientDb)
                 .HasForeignKey(d => d.FavoriteColorId)

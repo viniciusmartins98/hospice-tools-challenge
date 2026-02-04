@@ -18,7 +18,6 @@ namespace HospiceToolsChallenge.Application.Commands.Patients
                 Id = Guid.NewGuid(),
                 Age = request.Age,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 FavoriteColor = favoriteColor,

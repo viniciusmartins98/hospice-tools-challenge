@@ -11,7 +11,7 @@ create table patient(
   gender varchar(10),
   age int,
   favorite_color_id uuid,
-  created_at timestamp not null,
-  updated_at timestamp,
+  created_at timestamp with time zone not null default now(),
+  updated_at timestamp with time zone,
   constraint fk_patient_color foreign key(favorite_color_id) references color(id)
 );

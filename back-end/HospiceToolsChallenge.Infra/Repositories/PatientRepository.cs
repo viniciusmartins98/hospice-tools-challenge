@@ -40,6 +40,7 @@ namespace HospiceToolsChallenge.Infra.Repositories
                         .SetProperty(x => x.LastName, model.LastName)
                         .SetProperty(x => x.FavoriteColorId, model.FavoriteColorId)
                         .SetProperty(x => x.Gender, gender)
+                        .SetProperty(x => x.UpdatedAt, DateTime.UtcNow)
                     ,cancellationToken
                 );
         }

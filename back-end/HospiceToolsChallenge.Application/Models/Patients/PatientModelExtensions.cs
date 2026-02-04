@@ -12,17 +12,24 @@ namespace HospiceToolsChallenge.Application.Models.Patients
                 return null;
             }
 
+            ColorModel favoriteColor = null;
+            if (entity.FavoriteColor != null)
+            {
+                favoriteColor = new ColorModel
+                {
+                    HexCode = entity.FavoriteColor.HexCode,
+                    Id = entity.FavoriteColor.Id,
+                    Name = entity.FavoriteColor.Name
+                };
+            }
+
+
             return new PatientModel
             {
                 UpdatedAt = entity.UpdatedAt,
                 Age = entity.Age,
                 CreatedAt = entity.CreatedAt,
-                FavoriteColor = new ColorModel
-                {
-                    HexCode = entity.FavoriteColor.HexCode,
-                    Id = entity.FavoriteColor.Id,
-                    Name = entity.FavoriteColor.Name
-                },
+                FavoriteColor = favoriteColor,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 FullName = entity.FullName,
