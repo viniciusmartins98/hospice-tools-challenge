@@ -1,4 +1,5 @@
 ﻿using HospiceToolsChallenge.Application.Models.Colors;
+using HospiceToolsChallenge.Domain.Enums;
 
 namespace HospiceToolsChallenge.Application.Models.Patients
 {
@@ -12,11 +13,11 @@ namespace HospiceToolsChallenge.Application.Models.Patients
 
         public string FullName { get; set; }
 
-        public string Gender { get; set; }
+        public GenderEnum? Gender { get; set; }
 
         public int? Age { get; set; }
 
-        public ColorModel FavoriteColor { get; set; }
+        public ColorModel FavoriteColor { get; set; } = null;
 
         public DateTime CreatedAt { get; set; }
 

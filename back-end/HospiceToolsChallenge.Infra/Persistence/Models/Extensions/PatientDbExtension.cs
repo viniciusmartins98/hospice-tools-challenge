@@ -1,4 +1,5 @@
 ﻿using HospiceToolsChallenge.Domain.Entities;
+using HospiceToolsChallenge.Domain.Enums;
 using HospiceToolsChallenge.Infra.Entities;
 
 namespace HospiceToolsChallenge.Infra.Persistence.Models.Extensions
@@ -9,6 +10,12 @@ namespace HospiceToolsChallenge.Infra.Persistence.Models.Extensions
         {
             if (patient == null) {
                 return null;
+            }
+
+            GenderEnum? gender = null;
+            if (!Enum.TryParse<GenderEnum>(patient.Gender, out GenderEnum result))
+            {
+                gender = result;
             }
 
             return new Patient
@@ -23,7 +30,7 @@ namespace HospiceToolsChallenge.Infra.Persistence.Models.Extensions
                 } : null,
                 FirstName = patient.FirstName,
                 LastName = patient.LastName,
-                Gender = patient.Gender,
+                Gender = gender,
                 Id = patient.Id,
                 UpdatedAt = patient.UpdatedAt
             };
@@ -49,7 +56,7 @@ namespace HospiceToolsChallenge.Infra.Persistence.Models.Extensions
                 } : null,
                 FirstName = patient.FirstName,
                 LastName = patient.LastName,
-                Gender = patient.Gender,
+                Gender = patient.Gender?.ToString(),
                 UpdatedAt = patient.UpdatedAt,
                 FavoriteColorId = patient.FavoriteColor.Id,
             };

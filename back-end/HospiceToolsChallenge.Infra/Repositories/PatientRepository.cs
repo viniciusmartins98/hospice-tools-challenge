@@ -1,4 +1,5 @@
-﻿using HospiceToolsChallenge.Application.Repositories;
+﻿using HospiceToolsChallenge.Application.Models.Patients;
+using HospiceToolsChallenge.Application.Repositories;
 using HospiceToolsChallenge.Domain.Entities;
 using HospiceToolsChallenge.Domain.Filters;
 using HospiceToolsChallenge.Domain.Pagination;
@@ -14,8 +15,7 @@ namespace HospiceToolsChallenge.Infra.Repositories
         public async Task AddAsync(Patient patient, CancellationToken cancellationToken)
         {
             var entity = patient.MapToDb();
-            entity.Id = Guid.NewGuid();
-            await dbContext.PatientDb.AddAsync(entity);
+            await dbContext.PatientDb.AddAsync(entity, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
         }
 
@@ -27,6 +27,28 @@ namespace HospiceToolsChallenge.Infra.Repositories
                 .Include(x => x.FavoriteColor)
                 .Select(x => x.MapToEntity())
                 .ToPagedResultAsync(filter, cancellationToken);
+        }
+
+        public async Task UpdateAsync(Guid id, UpdatePatientDto model, CancellationToken cancellationToken)
+        {
+            var gender = model.Gender?.ToString();
+            await dbContext.PatientDb
+                .Where(x => x.Id == id)
+                .ExecuteUpdateAsync(patient =>
+                    patient
+                        .SetProperty(x => x.FirstName, model.FirstName)
+                        .SetProperty(x => x.LastName, model.LastName)
+                        .SetProperty(x => x.FavoriteColorId, model.FavoriteColorId)
+                        .SetProperty(x => x.Gender, gender)
+                    ,cancellationToken
+                );
+        }
+
+        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            await dbContext.PatientDb
+                .Where(x => x.Id == id)
+                .ExecuteDeleteAsync(cancellationToken);
         }
     }
 }

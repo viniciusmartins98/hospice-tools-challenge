@@ -1,4 +1,5 @@
-﻿using HospiceToolsChallenge.Application.Models.Patients;
+﻿using HospiceToolsChallenge.Application.Commands.Patients;
+using HospiceToolsChallenge.Application.Models.Patients;
 using HospiceToolsChallenge.Application.Queries.Patients;
 using HospiceToolsChallenge.Domain.Pagination;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -14,6 +15,45 @@ namespace HospiceToolsChallenge.Api.Controllers
         {
             var result = await Mediator.Send(query, cancellationToken);
             return Ok(result);
+        }
+
+        [Produces<Created>]
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] AddPatientCommand command, CancellationToken cancellationToken)
+        {
+            await Mediator.Send(command, cancellationToken);
+            return Created();
+        }
+
+        [Produces<NoContent>]
+        [HttpPut("{patientId}")]
+        public async Task<IActionResult> Update(
+            [FromRoute] Guid patientId,
+            [FromBody] UpdatePatientDto request,
+            CancellationToken cancellationToken)
+        {
+            await Mediator.Send(new UpdatePatientCommand
+            {
+                PatientId = patientId,
+                FavoriteColorId = request.FavoriteColorId,
+                FirstName = request.FirstName,
+                Gender = request.Gender,
+                LastName = request.LastName
+            }, cancellationToken);
+            return NoContent();
+        }
+
+        [Produces<NoContent>]
+        [HttpDelete("{patientId}")]
+        public async Task<IActionResult> Delete(
+            [FromRoute] Guid patientId,
+            CancellationToken cancellationToken)
+        {
+            await Mediator.Send(new DeletePatientCommand
+            {
+                PatientId = patientId
+            }, cancellationToken);
+            return NoContent();
         }
     }
 }

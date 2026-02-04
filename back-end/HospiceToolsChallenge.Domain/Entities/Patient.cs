@@ -1,4 +1,6 @@
-﻿namespace HospiceToolsChallenge.Domain.Entities
+﻿using HospiceToolsChallenge.Domain.Enums;
+
+namespace HospiceToolsChallenge.Domain.Entities
 {
     public class Patient
     {
@@ -10,11 +12,11 @@
 
         public string FullName => FirstName + " " + LastName;
 
-        public string Gender { get; set; }
+        public GenderEnum? Gender { get; set; }
 
         public int? Age { get; set; }
 
-        public Color FavoriteColor { get; set; }
+        public Color FavoriteColor { get; set; } = null;
 
         public DateTime CreatedAt { get; set; }
 
