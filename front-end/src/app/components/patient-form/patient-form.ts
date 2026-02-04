@@ -20,7 +20,7 @@ import { ColorsService } from '../../services/colors/colors.service';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './patient-form.html',
   styleUrl: './patient-form.scss',
@@ -31,16 +31,24 @@ export class PatientForm implements OnInit {
   onSubmit = output<IPatientFormOutput>();
 
   patientForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    gender: new FormControl<GenderEnum | null>(null),
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(50),
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(50),
+    ]),
+    gender: new FormControl<GenderEnum | null>(null, Validators.maxLength(10)),
     age: new FormControl<number | null>(null, [Validators.min(0), Validators.max(150)]),
-    favoriteColorId: new FormControl<string | null>(null)
+    favoriteColorId: new FormControl<string | null>(null),
   });
 
   genderOptions = [
     { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' }
+    { value: 'Female', label: 'Female' },
   ];
 
   colorOptions = computed(() => this._colorsService.colors());
@@ -58,7 +66,7 @@ export class PatientForm implements OnInit {
       lastName: patient.lastName,
       gender: patient.gender,
       age: patient.age,
-      favoriteColorId: patient.favoriteColor?.id || null
+      favoriteColorId: patient.favoriteColor?.id || null,
     });
   }
 
@@ -71,7 +79,7 @@ export class PatientForm implements OnInit {
         firstName: patientData.firstName ?? '',
         lastName: patientData.lastName ?? '',
         gender: patientData.gender ?? null,
-        favoriteColorId: patientData.favoriteColorId ?? null
+        favoriteColorId: patientData.favoriteColorId ?? null,
       });
     } else {
       this.patientForm.markAllAsTouched();

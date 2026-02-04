@@ -7,7 +7,7 @@
       <div class="search-container">
         <mat-form-field subscriptSizing="dynamic" appearance="fill" [floatLabel]="'always'">
           <mat-label>Search by patient name</mat-label>
-          <input matInput [(ngModel)]="patientName">
+          <input matInput [(ngModel)]="patientName" maxlength="50">
         </mat-form-field>
         <button mat-flat-button (click)="openPatientFormDialog()">
           <mat-icon>add</mat-icon>
