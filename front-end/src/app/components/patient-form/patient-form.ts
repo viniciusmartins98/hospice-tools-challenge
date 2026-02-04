@@ -9,8 +9,6 @@ import IColor from '../../services/patients/interfaces/color';
 import IPatient from '../../services/patients/interfaces/patient';
 import { GenderEnum } from '../../services/patients/enums/gender.enum';
 import IPatientFormOutput from './interfaces/patient-form-output';
-import { MatMenuContent } from "@angular/material/menu";
-import { ɵEmptyOutletComponent } from "@angular/router";
 
 @Component({
   selector: 'app-patient-form',
