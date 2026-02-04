@@ -41,7 +41,7 @@
   <!-- Age Field -->
   <mat-form-field class="full-width" floatLabel="always">
     <mat-label>Age</mat-label>
-    <input matInput type="number" [formControl]="patientForm.controls.age">
+    <input matInput type="number" [formControl]="patientForm.controls.age" >
     @if (patientForm.controls.age.invalid) {
     <mat-error>
       Enter a valid age.

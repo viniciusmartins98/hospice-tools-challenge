@@ -76,6 +76,35 @@
     }
   </div>
 
+  <!-- Colors by Gender -->
+  <h2>Favorite Colors by Gender</h2>
+  <p class="section-description">Preferred colors by gender</p>
+
+  <div class="gender-groups-grid">
+    @for (genderColors of favoriteColorPatientsCountByGender().values(); track genderColors) {
+    <mat-card class="gender-group-card">
+      <mat-card-header>
+        <mat-card-title class="gender-title">
+          {{ genderColors[0].gender }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul class="color-list">
+          @for (item of genderColors; track item.color.id) {
+          <li class="color-list-item">
+            <span class="color-indicator" [style.background-color]="item.color.hexCode"></span>
+            <span class="color-name">{{ item.color.name }}</span>
+            <span class="color-count">{{ item.patientsCount }}
+              {{ item.patientsCount === 1 ? 'patient' : 'patients' }}
+            </span>
+          </li>
+          }
+        </ul>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+
   @if (colorStats().length === 0) {
   <div class="empty-state">
     <p>No colors available to display statistics.</p>
