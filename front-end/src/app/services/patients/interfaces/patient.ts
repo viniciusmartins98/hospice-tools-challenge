@@ -1,5 +1,5 @@
 import { GenderEnum } from "../enums/gender.enum";
-import IColor from "./color";
+import IColor from "../../colors/interfaces/color";
 
 export default interface IPatient {
   id: string;

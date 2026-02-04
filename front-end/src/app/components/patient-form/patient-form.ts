@@ -1,14 +1,15 @@
-import { Component, input, OnInit, output } from '@angular/core';
+import { Component, computed, inject, input, OnInit, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import IColor from '../../services/patients/interfaces/color';
+import IColor from '../../services/colors/interfaces/color';
 import IPatient from '../../services/patients/interfaces/patient';
 import { GenderEnum } from '../../services/patients/enums/gender.enum';
 import IPatientFormOutput from './interfaces/patient-form-output';
+import { ColorsService } from '../../services/colors/colors.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -25,6 +26,7 @@ import IPatientFormOutput from './interfaces/patient-form-output';
   styleUrl: './patient-form.scss',
 })
 export class PatientForm implements OnInit {
+  private readonly _colorsService = inject(ColorsService);
   patient = input<IPatient | null>(null);
   onSubmit = output<IPatientFormOutput>();
 
@@ -41,8 +43,7 @@ export class PatientForm implements OnInit {
     { value: 'Female', label: 'Female' }
   ];
 
-  // TODO: Get colors from API
-  colorOptions: IColor[] = [];
+  colorOptions = computed(() => this._colorsService.colors());
 
   ngOnInit(): void {
     if (!this.patient()) {
