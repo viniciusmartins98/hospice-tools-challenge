@@ -48,15 +48,33 @@
   </div>
 
   <!-- Colors by Age Group -->
-  <h2>Favorite Colors by Age Group</h2>
+  <h2>Favorite Colors by Age Range</h2>
   <p class="section-description">Prefered colors for each age range group</p>
 
-  <mat-card class="age-group-container">
-    <mat-card-content>
-      <!--TODO: Complete with favorite colors by age range-->
-      In progress...
-    </mat-card-content>
-  </mat-card>
+  <div class="age-groups-grid">
+    @for (ageRangeColors of favoriteColorPatientsCountByAgeRange().values(); track ageRangeColors) {
+    <mat-card class="age-group-card">
+      <mat-card-header>
+        <mat-card-title class="age-range-title">
+          {{ ageRangeColors[0].ageRange.from }} - {{ ageRangeColors[0].ageRange.to }} years
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul class="color-list">
+          @for (item of ageRangeColors; track item.favoriteColor.id) {
+          <li class="color-list-item">
+            <span class="color-indicator" [style.background-color]="item.favoriteColor.hexCode"></span>
+            <span class="color-name">{{ item.favoriteColor.name }}</span>
+            <span class="color-count">{{ item.patientsCount }}
+              {{ item.patientsCount === 1 ? 'patient' : 'patients' }}
+            </span>
+          </li>
+          }
+        </ul>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
 
   @if (colorStats().length === 0) {
   <div class="empty-state">

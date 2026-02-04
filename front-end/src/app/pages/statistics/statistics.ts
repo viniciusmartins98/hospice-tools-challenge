@@ -1,12 +1,12 @@
-import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { Component, inject, OnInit, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ColorsService } from '../../services/colors/colors.service';
 import { PatientsService } from '../../services/patients/patients.service';
 import IColor from '../../services/colors/interfaces/color';
-import IPatient from '../../services/patients/interfaces/patient';
 import IPatientStatistics from '../../services/patients/interfaces/patient-statistics';
+import IPatientFavoriteColorCountByAgeRange from '../../services/patients/interfaces/patient-favorite-color-count-by-age-range';
 
 interface ColorStat {
   color: IColor;
@@ -41,9 +41,19 @@ export class Statistics implements OnInit {
   totalPatients = computed(() => this.patientStatistics()?.patientsCount);
   patientsWithColor = computed(() => this.patientStatistics()?.patientsWithColorCount);
   patientsWithoutColor = computed(() => this.patientStatistics()?.patientsWithNoColorsCount);
-  //TODO: complete
+
   favoriteColorPatientsCountByAgeRange = computed(
-    () => this.patientStatistics()?.favoriteColorPatientsCountByAgeRange,
+    () => {
+      const dicColorAgeRange = new Map<number, IPatientFavoriteColorCountByAgeRange[]>();
+
+      const favoriteColorPatientsCountByAgeRange = this.patientStatistics()?.favoriteColorPatientsCountByAgeRange
+      favoriteColorPatientsCountByAgeRange?.map((item) => {
+        const existingItems = dicColorAgeRange.get(item.ageRange.from) ?? [];
+        existingItems.push(item);
+        dicColorAgeRange.set(item.ageRange.from, [...existingItems]);
+      })
+      return dicColorAgeRange;
+    },
   );
 
   ngOnInit() {
