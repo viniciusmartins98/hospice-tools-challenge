@@ -1,4 +1,16 @@
-import { Component, computed, effect, inject, model, OnDestroy, OnInit, signal, TemplateRef, untracked, ViewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  model,
+  OnDestroy,
+  OnInit,
+  signal,
+  TemplateRef,
+  untracked,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -8,7 +20,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import IPatient from '../../services/patients/interfaces/patient';
 import { PatientsService } from '../../services/patients/patients.service';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, finalize, Subscription, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  finalize,
+  Subscription,
+  tap,
+} from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import IPaginatedResponse from '../../services/patients/interfaces/paginated-response';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -16,6 +35,7 @@ import { NgClass } from '@angular/common';
 import { PatientForm } from '../../components/patient-form/patient-form';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import IPatientFormOutput from '../../components/patient-form/interfaces/patient-form-output';
+import IPatientFilter from '../../services/patients/interfaces/patient-filter';
 
 @Component({
   selector: 'app-home',
@@ -43,14 +63,18 @@ export class Home implements OnInit, OnDestroy {
   page = signal(1);
   pageSize = signal(5);
   patientName = model('');
-  patientFilterName$ = new BehaviorSubject<string>('');
+  patientFilter$ = new BehaviorSubject<IPatientFilter>({
+    page: 1,
+    pageSize: 5,
+    patientName: '',
+  });
 
   patientResponse = signal<IPaginatedResponse<IPatient>>({
     data: [],
     totalItens: 0,
     totalPages: 0,
     currentPage: this.page(),
-    pageSize: this.pageSize()
+    pageSize: this.pageSize(),
   });
   patients = computed(() => this.patientResponse().data);
   loadingPatients = signal(false);
@@ -67,24 +91,24 @@ export class Home implements OnInit, OnDestroy {
   columns = ['name', 'gender', 'age', 'favoriteColor', 'actions'];
 
   constructor() {
-    // Every time patientName changes then publish new value to patientFilterName$ which triggers debounced patient filter update
+    // Every time filter changes then publish new value to patientFilter$ which triggers debounced patient filter update
     effect(() => {
-      this.patientFilterName$.next(this.patientName().trim());
-    })
+      this.patientFilter$.next({
+        page: this.page(),
+        pageSize: this.pageSize(),
+        patientName: this.patientName(),
+      });
+    });
 
-    // Every time page or pageSize changes triggers patient fetch
+    // Every time patientNameChanges reset page
     effect(() => {
-      if (this.page() <= 0 || this.pageSize() <= 0) {
-        return;
-      }
-      untracked(() => {
-        this._fetchPatients();
-      })
-    })
+      const _ = this.patientName();
+      this.page.set(1);
+    });
   }
 
   ngOnInit(): void {
-    const subscription = this.patientFilterName$
+    const subscription = this.patientFilter$
       .pipe(distinctUntilChanged(), debounceTime(500))
       .subscribe(() => {
         this._fetchPatients();
@@ -94,15 +118,16 @@ export class Home implements OnInit, OnDestroy {
 
   private _fetchPatients() {
     this.loadingPatients.set(true);
-    this._patientsService.listPatients({
-      page: this.page(),
-      pageSize: this.pageSize(),
-      patientName: this.patientName()
-    })
+    this._patientsService
+      .listPatients({
+        page: this.page(),
+        pageSize: this.pageSize(),
+        patientName: this.patientName(),
+      })
       .pipe(
         finalize(() => {
           this.loadingPatients.set(false);
-        })
+        }),
       )
       .subscribe((response) => {
         this.patientResponse.set(response);
@@ -127,39 +152,35 @@ export class Home implements OnInit, OnDestroy {
       width: '100%',
       maxWidth: '550px',
       data: {
-        patientId
-      }
+        patientId,
+      },
     });
   }
-
 
   addOrUpdatePatient(patient: IPatientFormOutput) {
     this.persisting.set(true);
     if (this.editingPatient()) {
-      this._patientsService.updatePatient(this.editingPatient()!.id, patient)
-        .subscribe(() => {
-          this.persisting.set(false);
-          this._matDialog.closeAll();
-          this._fetchPatients();
-        });
+      this._patientsService.updatePatient(this.editingPatient()!.id, patient).subscribe(() => {
+        this.persisting.set(false);
+        this._matDialog.closeAll();
+        this._fetchPatients();
+      });
     } else {
-      this._patientsService.addPatient(patient)
-        .subscribe(() => {
-          this.persisting.set(false);
-          this._matDialog.closeAll();
-          this._fetchPatients();
-        });
+      this._patientsService.addPatient(patient).subscribe(() => {
+        this.persisting.set(false);
+        this._matDialog.closeAll();
+        this._fetchPatients();
+      });
     }
   }
 
   deletePatient(patientId: string) {
     this.persisting.set(true);
-    this._patientsService.deletePatient(patientId)
-      .subscribe(() => {
-        this.persisting.set(false);
-        this._matDialog.closeAll();
-        this._fetchPatients();
-      });
+    this._patientsService.deletePatient(patientId).subscribe(() => {
+      this.persisting.set(false);
+      this._matDialog.closeAll();
+      this._fetchPatients();
+    });
   }
 
   ngOnDestroy(): void {
