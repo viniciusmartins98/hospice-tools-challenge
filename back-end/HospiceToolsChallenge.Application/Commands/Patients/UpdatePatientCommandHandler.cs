@@ -7,7 +7,7 @@ namespace HospiceToolsChallenge.Application.Commands.Patients
     {
         public async Task Handle(UpdatePatientCommand request, CancellationToken cancellationToken)
         {
-            await repository.UpdateAsync(request.PatientId, request);
+            await repository.UpdateAsync(request.PatientId, request, cancellationToken);
         }
     }
 }
