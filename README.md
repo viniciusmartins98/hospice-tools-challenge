@@ -15,7 +15,7 @@ This is a Single Page Application (SPA) developed as part of a technical exercis
 
 ### 1. Prerequisites
 * [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-* [Node.js](https://nodejs.org/)
+* [Node.js (v24.13.0](https://nodejs.org/)
 * [pnpm](https://pnpm.io/installation)
 
 ### 2. Database Configuration
