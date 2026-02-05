@@ -38,6 +38,7 @@ namespace HospiceToolsChallenge.Api.Controllers
                 FavoriteColorId = request.FavoriteColorId,
                 FirstName = request.FirstName,
                 Gender = request.Gender,
+                Age = request.Age,
                 LastName = request.LastName
             }, cancellationToken);
             return NoContent();
